@@ -1,0 +1,13 @@
+{
+  "name": "São Paulo",
+  "main": {
+    "temp": 24.3,
+    "humidity": 68
+  },
+  "weather": [
+    {
+      "description": "céu limpo",
+      "icon": "01d"
+    }
+  ]
+}

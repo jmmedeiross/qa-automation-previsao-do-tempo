@@ -1,0 +1,74 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Open Sans", sans-serif;
+}
+
+body {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #0f1b2b;
+}
+
+.caixa-maior {
+  width: 320px;
+  background: #16243a;
+  border-radius: 16px;
+  padding: 24px;
+  color: #fff;
+  text-align: center;
+  position: relative;
+}
+
+.input-cidade {
+  width: 70%;
+  padding: 10px;
+  border-radius: 8px;
+  border: none;
+  outline: none;
+}
+
+.botao-busca {
+  border: none;
+  background: #3a7bd5;
+  border-radius: 8px;
+  padding: 8px 10px;
+  margin-left: 6px;
+  cursor: pointer;
+}
+
+.img-busca {
+  width: 18px;
+  height: 18px;
+  filter: invert(1);
+}
+
+.caixa-media {
+  margin-top: 20px;
+}
+
+.temp {
+  font-size: 42px;
+  font-weight: 700;
+}
+
+.caixa-menor {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+
+.umidade {
+  margin-top: 12px;
+  color: #a9b8cc;
+}
+
+.mensagem-erro {
+  margin-top: 12px;
+  color: #ff6b6b;
+  font-size: 14px;
+}

@@ -1,0 +1,16 @@
+{
+  "name": "qa-automation-previsao-do-tempo",
+  "version": "1.0.0",
+  "description": "Projeto de automação de testes (Cypress) para a aplicação Previsão do Tempo, incluindo testes de UI e testes de API.",
+  "scripts": {
+    "serve": "http-server ./app -p 5500 -c-1",
+    "cy:open": "cypress open",
+    "cy:run": "cypress run",
+    "test": "start-server-and-test serve http://127.0.0.1:5500 cy:run"
+  },
+  "devDependencies": {
+    "cypress": "^13.13.0",
+    "http-server": "^14.1.1",
+    "start-server-and-test": "^2.0.4"
+  }
+}

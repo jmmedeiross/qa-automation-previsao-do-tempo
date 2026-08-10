@@ -1,0 +1,13 @@
+{
+  "name": "Salvador",
+  "main": {
+    "temp": 29.1,
+    "humidity": 80
+  },
+  "weather": [
+    {
+      "description": "nublado",
+      "icon": "04d"
+    }
+  ]
+}
