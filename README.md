@@ -1,83 +1,147 @@
-# QA Automation — Previsão do Tempo
+# QA Automation - Previsão do Tempo
 
-Projeto de portfólio em **automação de testes com Cypress**, cobrindo dois
-tipos de teste comuns em vagas de QA:
+![Cypress Tests](https://github.com/jmmedeiross/qa-automation-previsao-do-tempo/actions/workflows/cypress-tests.yml/badge.svg)
 
-- **Testes de UI (E2E)** sobre a aplicação [Previsão do Tempo](https://github.com/jmmedeiross/Previsao-do-Tempo), usando `cy.intercept` para simular as respostas da API de clima — os testes rodam de forma rápida e confiável, sem depender de internet ou de chave de API real.
-- **Testes de API** independentes de interface, validando contrato (status code, schema, tipos de dados) de uma API REST pública (CRUD completo: GET, POST, PUT, DELETE).
+Projeto de portfólio em **QA Automation** utilizando Cypress para demonstrar automação de testes E2E, testes de API, validação de respostas e execução automatizada com GitHub Actions.
 
-## Por que este projeto existe
+## Sobre o projeto
 
-Fui construindo esse projeto para demonstrar, na prática, competências de QA
-Automation a partir da minha experiência como desenvolvedor (JavaScript,
-integração de APIs, CI/CD com GitHub Actions). A ideia não é só "saber
-Cypress", mas mostrar raciocínio de teste: casos de sucesso, casos de erro,
-borda (campo vazio, espaços em branco) e independência de dados externos.
+O projeto utiliza uma aplicação de previsão do tempo como sistema sob teste.
 
-## Stack
+A suíte automatizada cobre dois grupos de testes:
 
-- [Cypress](https://www.cypress.io/) — framework de testes E2E e de API
-- `http-server` — sobe a aplicação estática localmente para os testes de UI
-- `start-server-and-test` — sobe o servidor, espera ficar disponível e só então roda os testes
-- API pública [ReqRes](https://reqres.in) — alvo dos testes de API
+- **UI / E2E** - valida o comportamento da aplicação e seus principais fluxos.
+- **API Testing** - valida uma API REST utilizando requisições GET, POST, PUT e DELETE.
 
-## Estrutura do projeto
+Os testes de UI utilizam `cy.intercept()` e fixtures para simular respostas da API de clima, tornando os testes independentes da disponibilidade de serviços externos.
 
-```
-qa-automation-portfolio/
-├── app/                        # aplicação sob teste (Previsão do Tempo)
+## O que é testado
+
+### UI / E2E
+
+- Estado inicial da aplicação
+- Busca de cidade
+- Exibição da temperatura
+- Exibição da descrição do clima
+- Exibição da umidade
+- Validação da cidade enviada para a API
+- Busca de diferentes cidades em sequência
+- Cidade não encontrada
+- Falha de rede
+- Campo vazio
+- Espaços em branco
+
+### API
+
+- GET /users
+- Validação de status code
+- Validação de schema
+- Validação de tipos de dados
+- Busca de usuário por ID
+- Usuário inexistente
+- POST /users
+- PUT /users/:id
+- DELETE /users/:id
+
+## Tecnologias
+
+- Cypress
+- JavaScript
+- HTML
+- CSS
+- http-server
+- ReqRes API
+- Git
+- GitHub
+- GitHub Actions
+
+## Estrutura
+
+```text
+qa-automation-previsao-do-tempo/
+│
+├── .github/
+│   └── workflows/
+│       └── cypress-tests.yml
+│
+├── app/
 │   ├── index.html
-│   ├── style.css
-│   └── script.js
+│   ├── script.js
+│   └── style.css
+│
 ├── cypress/
 │   ├── e2e/
-│   │   ├── previsao-tempo.cy.js   # testes de UI (7 cenários)
-│   │   └── api-usuarios.cy.js     # testes de API (GET/POST/PUT/DELETE)
-│   ├── fixtures/                  # dados simulados (mocks) da API de clima
+│   │   ├── previsao-tempo.cy.js
+│   │   └── api-usuarios.cy.js
+│   │
+│   ├── fixtures/
 │   └── support/
-│       ├── commands.js            # comando customizado buscarCidade()
-│       └── e2e.js
+│
 ├── cypress.config.js
-└── package.json
-```
-
-## Cenários de teste cobertos
-
-**UI (`previsao-tempo.cy.js`)**
-- Estado inicial da tela
-- Busca de cidade com sucesso (atualização de temperatura, descrição e umidade)
-- Verificação de que a cidade digitada é enviada corretamente na requisição
-- Busca sequencial de mais de uma cidade (dados sendo atualizados corretamente)
-- Cidade não encontrada (erro 404 da API)
-- API indisponível (erro de rede)
-- Campo de busca vazio (validação de front-end, sem chamar a API)
-- Espaços em branco no início/fim do nome da cidade
-
-**API (`api-usuarios.cy.js`)**
-- Listagem paginada de usuários (GET)
-- Validação de schema e tipos de cada usuário retornado
-- Busca de usuário específico por ID
-- Usuário inexistente retorna 404
-- Criação de usuário (POST) retorna 201 com os dados corretos
-- Atualização de usuário (PUT) retorna os campos atualizados
-- Remoção de usuário (DELETE) retorna 204
-
-## Como rodar localmente
-
-```bash
-# 1. Instalar dependências
+├── cypress.api.config.js
+├── package.json
+├── package-lock.json
+├── .gitignore
+└── README.md
+Como executar
+Instalar dependências
 npm install
-
-# 2. Rodar tudo de uma vez (sobe o servidor local + roda os testes)
+Executar os testes
 npm test
+Abrir o Cypress
+npm run serve
 
-# Ou, para desenvolvimento/depuração com interface visual do Cypress:
-npm run serve        # em um terminal, sobe a aplicação em http://127.0.0.1:5500
-npm run cy:open       # em outro terminal, abre o Cypress
-```
+Em outro terminal:
 
-## Próximos passos
+npm run cy:open
+Executar os testes de API
 
-- Adicionar o pipeline em GitHub Actions para rodar os testes automaticamente a cada push
-- Adicionar testes de acessibilidade básica (cypress-axe)
-- Adicionar relatório de execução (mochawesome)
+Configure a API key do ReqRes:
+
+$env:CYPRESS_REQRES_API_KEY="SUA_API_KEY"
+
+Depois execute:
+
+npx cypress run --config-file cypress.api.config.js --spec "cypress/e2e/api-usuarios.cy.js"
+
+A API key não é armazenada no código-fonte.
+
+GitHub Actions
+
+O projeto possui CI configurado com GitHub Actions.
+
+A cada push na branch main, o pipeline executa automaticamente:
+
+GitHub
+   ↓
+GitHub Actions
+   ↓
+┌───────────────┬───────────────┐
+│   UI Tests    │   API Tests   │
+│               │               │
+│    Cypress    │    Cypress    │
+└───────────────┴───────────────┘
+
+Os testes de API utilizam a API key armazenada como GitHub Secret, mantendo a credencial fora do código.
+
+Resultados
+
+Atualmente o projeto possui:
+
+8 testes de UI / E2E
+7 testes de API
+15 testes automatizados no total
+
+Os resultados das execuções podem ser acompanhados pelo GitHub Actions.
+
+Ver GitHub Actions
+
+Próximos passos
+Testes de acessibilidade com cypress-axe
+Relatórios de execução
+Screenshots e vídeos como artifacts do GitHub Actions
+Maior cobertura de cenários
+Testes de responsividade
+Autor
+
+Projeto desenvolvido como portfólio de QA Automation, com foco em Cypress, testes E2E, testes de API e CI/CD.
