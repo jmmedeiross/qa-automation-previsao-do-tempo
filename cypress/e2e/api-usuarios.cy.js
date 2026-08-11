@@ -86,7 +86,7 @@ describe("API de Usuários - PUT /users/:id (atualização)", () => {
   it("atualiza um usuário existente e retorna os novos dados", () => {
     const dadosAtualizados = {
       name: "João Medeiros",
-      job: "QA Sênior",
+      job: "QA",
     };
 
     apiRequest({
@@ -96,7 +96,7 @@ describe("API de Usuários - PUT /users/:id (atualização)", () => {
     }).then((resposta) => {
       expect(resposta.status).to.eq(200);
       expect(resposta.body).to.have.property("name", "João Medeiros");
-      expect(resposta.body).to.have.property("job", "QA Sênior");
+      expect(resposta.body).to.have.property("job", "QA");
       expect(resposta.body).to.have.property("updatedAt");
     });
   });
